@@ -1,6 +1,7 @@
 console.log('Starting...');
 
 var path = require('path');
+var childProcess = require("child_process");
 var compression = require('compression');
 var express = require('express');
 var app = express();
@@ -61,4 +62,18 @@ io.on('connection', function (socket) {
   });
 });
 
-console.log('Ready: http://localhost:'+config.http.port, '\n');
+var url = 'http://localhost:'+config.http.port;
+
+console.log('Ready: ' + url + "\n");
+
+if ( config.launchBroser ) {
+  console.log('waiting for sim...');
+  // wait for sessionInfo to be available
+  var waitForSessionInfoId = setInterval(function (){
+    if ( sessionInfo ) {
+      console.log('opening browser...');
+      clearInterval(waitForSessionInfoId);
+      childProcess.exec('start ' + url);
+    }
+  }, 1000);
+}

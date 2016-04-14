@@ -1,5 +1,6 @@
 {
   "http": {
     "port": 3080
-  }
+  },
+  "launchBroser": true
 }
