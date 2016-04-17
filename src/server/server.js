@@ -19,20 +19,20 @@ IrSdk.init({
   sessionInfoParser: require('./telemetry/parseSessionInfo')
 });
 
-var telemetry, telemetryDescription, sessionInfo;
+var store = {};
 
 var iracing = IrSdk.getInstance();
 
 iracing.on('TelemetryDescription', function (data) {
-  telemetryDescription = data;
+  store.TelemetryDescription = data;
 });
 
 iracing.on('Telemetry', function (data) {
-  telemetry = data;
+  store.Telemetry = data;
 });
 
 iracing.on('SessionInfo', function (data) {
-  sessionInfo = data;
+  store.SessionInfo = data;
 });
 
 app.use(compression());
@@ -50,15 +50,13 @@ app.get('/', function (req, res) {
 
 // serve jsoneditor icons
 app.get('/img/jsoneditor-icons.svg', function (req, res) {
-  res.sendFile(path.join(__dirname,   
+  res.sendFile(path.join(__dirname,
     '../../node_modules/jsoneditor/dist/img/jsoneditor-icons.svg'));
 });
 
 io.on('connection', function (socket) {
   socket.on(Constants.request.init, function () {
-    socket.emit(Constants.update.Telemetry, telemetry);
-    socket.emit(Constants.update.TelemetryDescription, telemetryDescription);
-    socket.emit(Constants.update.SessionInfo, sessionInfo);
+    socket.emit(Constants.data.all, store);
   });
 });
 
@@ -67,10 +65,10 @@ var url = 'http://localhost:'+config.http.port;
 console.log('Ready: ' + url + "\n");
 
 if ( config.launchBroser ) {
-  console.log('waiting for sim...');
+  console.log('browser launching: waiting for sim...');
   // wait for sessionInfo to be available
   var waitForSessionInfoId = setInterval(function (){
-    if ( sessionInfo ) {
+    if ( store.SessionInfo ) {
       console.log('opening browser...');
       clearInterval(waitForSessionInfoId);
       childProcess.exec('start ' + url);

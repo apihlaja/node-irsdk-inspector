@@ -5,7 +5,7 @@ var JSONEditor = require('jsoneditor');
 var Constants = require('../Constants');
 
 
-var data = {}; // irsdk data objects
+var data = {};
 
 var viewers = [];
 
@@ -20,18 +20,21 @@ function updateViewers() {
   viewerOrder.forEach(function (viewName, index) {
     viewers[index].set(data[viewName]);
     viewers[index].setName(viewName);
-    // by default, jsoneditor collapses all when json is updated
     viewers[index].expandAll();
   });
 }
 
 
 // subsribe data updates
-Object.keys(Constants.update).forEach(function (type) {
-  socket.on(Constants.update[type], function (sample) {
-    data[type] = sample;
-    updateViewers();
-  });
+socket.on(Constants.data.all, function (sample) {
+  data = sample;
+  updateViewers();
+  // request data again if something missing
+  if ( !data.SessionInfo || !data.Telemetry || !data.TelemetryDescription ) {
+    setTimeout(function () {
+      socket.emit(Constants.request.init);
+    }, 2000);
+  }
 });
 
 // manual data updates..
@@ -39,7 +42,7 @@ document.getElementById('refresh-data').addEventListener('click', function() {
   socket.emit(Constants.request.init);
 });
 
-socket.on('connect', function () {
   // request data update on connect
+socket.on('connect', function () {
   socket.emit(Constants.request.init);
 });
