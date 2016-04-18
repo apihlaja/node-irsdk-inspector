@@ -20,9 +20,9 @@
     "compression": "^1.6.1",
     "constantina": "^0.1.1",
     "express": "^4.13.4",
-    "js-yaml": "^3.5.5",
-    "jsoneditor": "^5.4.0",
-    "node-irsdk": "^1.0.11",
+    "js-yaml": "^3.6.0",
+    "jsoneditor": "^5.5.1",
+    "node-irsdk": "^1.0.12",
     "node-sass-middleware": "^0.9.8",
     "socket.io": "^1.4.5",
     "socket.io-client": "^1.4.5"

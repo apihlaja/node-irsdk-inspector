@@ -402,6 +402,10 @@ div.jsoneditor-contextmenu {
   box-sizing: content-box;
   z-index: 99999; }
 
+div.jsoneditor-contextmenu ul,
+div.jsoneditor-contextmenu li {
+  box-sizing: content-box; }
+
 div.jsoneditor-contextmenu ul {
   position: relative;
   left: 0;
