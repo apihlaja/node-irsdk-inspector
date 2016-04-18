@@ -64,7 +64,7 @@ var url = 'http://localhost:'+config.http.port;
 
 console.log('Ready: ' + url + "\n");
 
-if ( config.launchBroser ) {
+if ( config.launchBrowser ) {
   console.log('browser launching: waiting for sim...');
   // wait for sessionInfo to be available
   var waitForSessionInfoId = setInterval(function (){
