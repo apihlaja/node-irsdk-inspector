@@ -6,6 +6,9 @@ var compression = require('compression');
 var express = require('express');
 var app = express();
 var server = require('http').Server(app);
+
+module.exports =  server;
+
 var io = require('socket.io')(server);
 var IrSdk = require('node-irsdk');
 

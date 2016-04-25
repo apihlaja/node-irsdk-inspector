@@ -10,3 +10,7 @@ Shows iRacing session info and telemetry using [node-irsdk](https://github.com/a
 
 Use `npm run server` for quick start.
 
+To use electron version:
+
+1. `npm run electron-rebuild` to rebuild native addons
+2. ´npm run electron` starts the app
