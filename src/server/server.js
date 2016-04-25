@@ -7,7 +7,6 @@ var express = require('express');
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-var sass = require('node-sass-middleware');
 var IrSdk = require('node-irsdk');
 
 var Constants = require('../Constants');
@@ -36,9 +35,9 @@ iracing.on('SessionInfo', function (data) {
 });
 
 app.use(compression());
-app.use(sass({
-  src: 'src/browser/style',
-  dest: 'public'
+app.use(require('less-middleware')(__dirname+'/../../src/browser/style', {
+  dest: __dirname+'/../../public',
+  debug: true
 }));
 app.use('/', express.static('public'));
 
