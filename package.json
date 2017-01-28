@@ -19,7 +19,7 @@
   "dependencies": {
     "compression": "^1.6.1",
     "constantina": "^0.1.1",
-    "express": "^4.13.4",
+    "express": "^4.14.1",
     "js-yaml": "^3.6.0",
     "jsoneditor": "^5.5.1",
     "node-irsdk": "^1.0.12",
