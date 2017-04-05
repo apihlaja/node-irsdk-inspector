@@ -20,7 +20,7 @@
     "compression": "^1.6.1",
     "constantina": "^0.1.1",
     "express": "^4.13.4",
-    "js-yaml": "^3.6.0",
+    "js-yaml": "^3.8.3",
     "jsoneditor": "^5.5.1",
     "node-irsdk": "^1.0.12",
     "node-sass-middleware": "^0.10.1",
